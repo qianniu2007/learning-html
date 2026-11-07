@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Learning HTML — my Web Technologies course website with HTML, CSS and a little JavaScript.">
+  <meta name="author" content="WANG Youlin">
+  <title>Learning HTML — WANG Youlin</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230f766e'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='20' font-weight='bold' fill='white' text-anchor='middle'%3EW%3C/text%3E%3C/svg%3E">
+  <style>
+    /* ===== Basic variables & reset ===== */
+    :root {
+      --ink: #15283b;
+      --muted: #516173;
+      --primary: #0f766e;
+      --primary-dark: #0c5c55;
+      --accent: #d97706;
+      --bg: #f5f7f8;
+      --card: #ffffff;
+      --line: #e1e7ea;
+      --shadow: 0 2px 10px rgba(21, 40, 59, 0.07);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.7;
+      font-size: 16px;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: var(--primary); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    h1, h2, h3 { line-height: 1.25; font-weight: 700; }
+    .wrap { width: 100%; max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+    section { padding: 56px 0; }
+    .section-title { font-size: 28px; margin-bottom: 8px; }
+    .section-sub { color: var(--muted); margin-bottom: 32px; max-width: 640px; }
+    .tag {
+      display: inline-block; font-size: 13px; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--primary); background: #e6f3f1;
+      padding: 4px 12px; border-radius: 999px; margin-bottom: 14px;
+    }
+
+    /* ===== Header & navigation ===== */
+    header.site {
+      position: sticky; top: 0; z-index: 20;
+      background: var(--card); border-bottom: 1px solid var(--line);
+    }
+    .nav-bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 62px; flex-wrap: wrap; padding-top: 10px; padding-bottom: 10px; }
+    .logo { display: flex; align-items: center; gap: 9px; font-weight: 700; font-size: 18px; color: var(--ink); }
+    .logo:hover { text-decoration: none; }
+    .logo-mark { width: 30px; height: 30px; border-radius: 7px; background: var(--primary); color: #fff; display: grid; place-items: center; font-family: Georgia, serif; }
+    nav ul { list-style: none; display: flex; flex-wrap: wrap; gap: 4px; }
+    nav a { display: inline-block; padding: 7px 12px; border-radius: 6px; color: var(--muted); font-size: 15px; font-weight: 500; }
+    nav a:hover { background: #eef3f3; color: var(--ink); text-decoration: none; }
+
+    /* ===== Hero ===== */
+    #home { background: linear-gradient(160deg, #0f766e 0%, #115e59 100%); color: #eafaf7; padding: 72px 0; }
+    .hero { display: flex; align-items: center; gap: 40px; flex-wrap: wrap; }
+    .hero-text { flex: 1 1 320px; min-width: 0; }
+    .hero h1 { font-size: 40px; margin-bottom: 14px; color: #fff; }
+    .hero p { font-size: 18px; color: #c7e9e4; max-width: 520px; margin-bottom: 26px; }
+    .hero .btn-row { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn {
+      display: inline-block; padding: 12px 24px; border-radius: 8px; font-weight: 600;
+      font-size: 15px; border: none; cursor: pointer; transition: background 0.15s, transform 0.1s;
+    }
+    .btn:active { transform: translateY(1px); }
+    .btn-light { background: #fff; color: var(--primary-dark); }
+    .btn-light:hover { background: #e6f3f1; text-decoration: none; }
+    .btn-outline { background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,0.65); }
+    .btn-outline:hover { background: rgba(255,255,255,0.12); text-decoration: none; }
+    .hero-art { flex: 0 0 220px; }
+    .hero-art svg { width: 220px; height: auto; }
+
+    /* ===== About ===== */
+    .about-grid { display: flex; gap: 36px; flex-wrap: wrap; align-items: flex-start; }
+    .about-text { flex: 1 1 320px; min-width: 0; }
+    .about-text p { margin-bottom: 16px; color: #2c3e50; }
+    .about-card { flex: 0 0 280px; background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 26px; box-shadow: var(--shadow); }
+    .about-card h3 { font-size: 17px; margin-bottom: 14px; }
+    .about-card dl { font-size: 15px; }
+    .about-card dt { color: var(--muted); font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 12px; }
+    .about-card dd { font-weight: 600; }
+    .about-card dt:first-child { margin-top: 0; }
+
+    /* ===== Table ===== */
+    .table-box { background: var(--card); border: 1px solid var(--line); border-radius: 12px; overflow: auto; box-shadow: var(--shadow); }
+    table { width: 100%; border-collapse: collapse; table-layout: fixed; min-width: 520px; }
+    col.c1 { width: 28%; } col.c2 { width: 42%; } col.c3 { width: 30%; }
+    th, td { text-align: left; padding: 14px 18px; border-bottom: 1px solid var(--line); }
+    th { background: #f0f5f5; font-size: 14px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); }
+    tbody tr:last-child td { border-bottom: none; }
+    td code { background: #f1f5f5; color: var(--primary-dark); padding: 2px 7px; border-radius: 5px; font-size: 14px; font-family: "Cascadia Code", Consolas, monospace; }
+    .lesson-no { color: var(--accent); font-weight: 600; }
+
+    /* ===== Projects ===== */
+    #projects { background: #eef2f2; }
+    .cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
+    .project-card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 26px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 10px; }
+    .project-card .num { font-family: Georgia, serif; color: var(--accent); font-weight: 700; font-size: 15px; }
+    .project-card h3 { font-size: 19px; }
+    .project-card p { color: var(--muted); font-size: 15px; flex-grow: 1; }
+    .pill { display: inline-block; font-size: 12.5px; font-weight: 600; color: var(--primary); background: #e6f3f1; padding: 3px 10px; border-radius: 999px; margin-right: 6px; }
+
+    /* ===== Quotes + demo ===== */
+    .demo-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 24px; }
+    .quote-box, .counter-box { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 30px; box-shadow: var(--shadow); }
+    blockquote { font-size: 21px; line-height: 1.5; font-family: Georgia, "Times New Roman", serif; color: var(--ink); margin-bottom: 12px; min-height: 96px; }
+    blockquote::before { content: "\201C"; color: var(--accent); font-size: 40px; line-height: 0; vertical-align: -14px; margin-right: 4px; }
+    #quote-author { color: var(--muted); font-size: 15px; margin-bottom: 22px; }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-primary:hover { background: var(--primary-dark); text-decoration: none; }
+    .counter-box { text-align: center; }
+    .counter-box h3 { margin-bottom: 6px; }
+    .counter-box p { color: var(--muted); font-size: 14px; margin-bottom: 18px; }
+    #count-num { font-size: 56px; font-weight: 700; color: var(--primary); font-family: Georgia, serif; line-height: 1; margin-bottom: 18px; }
+    .counter-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+    .btn-ghost { background: #eef2f2; color: var(--ink); }
+    .btn-ghost:hover { background: #e0e7e7; text-decoration: none; }
+
+    /* ===== Contact form ===== */
+    #contact { background: #eef2f2; }
+    form { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 32px; box-shadow: var(--shadow); max-width: 680px; }
+    .form-row { display: flex; gap: 18px; flex-wrap: wrap; }
+    .field { flex: 1 1 220px; min-width: 0; margin-bottom: 18px; }
+    label { display: block; font-weight: 600; font-size: 14.5px; margin-bottom: 7px; }
+    input, select, textarea {
+      width: 100%; padding: 11px 13px; border: 1px solid var(--line); border-radius: 8px;
+      font-family: inherit; font-size: 16px; color: var(--ink); background: #fbfcfc;
+    }
+    input:focus, select:focus, textarea:focus { outline: 2px solid var(--primary); outline-offset: 0; border-color: var(--primary); background: #fff; }
+    textarea { resize: vertical; min-height: 110px; }
+    .toast {
+      display: none; margin-top: 16px; padding: 12px 16px; border-radius: 8px;
+      background: #e6f3f1; color: var(--primary-dark); font-weight: 600; font-size: 15px;
+    }
+    .toast.show { display: block; }
+
+    /* ===== Footer ===== */
+    footer.site { background: var(--ink); color: #b9c7d4; padding: 36px 0; font-size: 14.5px; }
+    .foot-inner { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+    footer a { color: #dce6ee; }
+    footer .logo { color: #fff; margin-bottom: 8px; }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 760px) {
+      section { padding: 44px 0; }
+      .hero h1 { font-size: 31px; }
+      .cards { grid-template-columns: 1fr; }
+      .demo-grid { grid-template-columns: 1fr; }
+      .nav-bar { justify-content: center; }
+      nav ul { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== Header ===== -->
+  <header class="site">
+    <div class="wrap nav-bar">
+      <a class="logo" href="#home"><span class="logo-mark">W</span> Learning HTML</a>
+      <nav>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#skills">HTML Notes</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#quotes">Quotes</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- ===== Hero / Home ===== -->
+    <section id="home">
+      <div class="wrap hero">
+        <div class="hero-text">
+          <h1>Hi, I'm Youlin. This is my first website.</h1>
+          <p>A small learning site built during the Web Technologies course — hand-written with HTML, CSS and a little bit of JavaScript, one tag at a time.</p>
+          <div class="btn-row">
+            <a class="btn btn-light" href="#about">About me</a>
+            <a class="btn btn-outline" href="#projects">My project ideas</a>
+          </div>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="10" width="180" height="120" rx="10" fill="#ffffff" opacity="0.12"/>
+            <rect x="10" y="10" width="180" height="22" rx="10" fill="#ffffff" opacity="0.18"/>
+            <circle cx="25" cy="21" r="4" fill="#f87171"/>
+            <circle cx="39" cy="21" r="4" fill="#fbbf24"/>
+            <circle cx="53" cy="21" r="4" fill="#34d399"/>
+            <text x="26" y="68" font-family="Consolas,monospace" font-size="15" fill="#a7f3d0">&lt;html&gt;</text>
+            <text x="40" y="90" font-family="Consolas,monospace" font-size="15" fill="#ffffff">&lt;h1&gt;Hello!&lt;/h1&gt;</text>
+            <text x="26" y="115" font-family="Consolas,monospace" font-size="15" fill="#a7f3d0">&lt;/html&gt;</text>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== About ===== -->
+    <section id="about">
+      <div class="wrap">
+        <span class="tag">About</span>
+        <h2 class="section-title">A few words about me</h2>
+        <p class="section-sub">The person behind this page.</p>
+        <div class="about-grid">
+          <div class="about-text">
+            <p>My name is <strong>WANG Youlin</strong> (王佑麟). I'm a Computer Science student at the Hainan Bielefeld University of Applied Sciences, currently in <em>Group 3</em>.</p>
+            <p>This website is part of our Web Technologies classes. I started with almost no knowledge of how web pages work, and I am now learning to structure pages with <mark>semantic HTML</mark>, style them with CSS and add simple interactions with JavaScript.</p>
+            <p>Outside of class, I follow football and basketball. One day I would like to build a proper sports news website of my own — you can see that idea in the projects section below.</p>
+          </div>
+          <aside class="about-card">
+            <h3>Quick facts</h3>
+            <dl>
+              <dt>Name</dt><dd>WANG Youlin</dd>
+              <dt>Student ID</dt><dd>X20250072</dd>
+              <dt>Group</dt><dd>Group 3</dd>
+              <dt>Major</dt><dd>Computer Science</dd>
+              <dt>Learning</dt><dd>HTML · CSS · JavaScript</dd>
+            </dl>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== HTML notes / table ===== -->
+    <section id="skills">
+      <div class="wrap">
+        <span class="tag">HTML Notes</span>
+        <h2 class="section-title">Tags I have learned so far</h2>
+        <p class="section-sub">A summary of the HTML elements covered in the course, following the lesson order.</p>
+        <div class="table-box">
+          <table>
+            <colgroup><col class="c1"><col class="c2"><col class="c3"></colgroup>
+            <thead>
+              <tr><th>Element</th><th>What it does</th><th>Lesson</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><code>&lt;h1&gt; – &lt;h6&gt;</code></td><td>Headings that build the page outline</td><td class="lesson-no">2.1 / 2.2</td></tr>
+              <tr><td><code>&lt;p&gt;</code></td><td>A paragraph of text</td><td class="lesson-no">2.2</td></tr>
+              <tr><td><code>&lt;a&gt;</code></td><td>Links and navigation between pages</td><td class="lesson-no">2.3</td></tr>
+              <tr><td><code>&lt;img&gt;</code></td><td>Images and other media</td><td class="lesson-no">2.4</td></tr>
+              <tr><td><code>&lt;ul&gt; &lt;ol&gt;</code></td><td>Unordered and ordered lists</td><td class="lesson-no">2.2</td></tr>
+              <tr><td><code>&lt;table&gt;</code></td><td>Tabular data in rows and columns</td><td class="lesson-no">2.5</td></tr>
+              <tr><td><code>&lt;form&gt;</code></td><td>Inputs to collect data from the user</td><td class="lesson-no">2.6</td></tr>
+              <tr><td><code>&lt;header&gt; &lt;nav&gt; &lt;footer&gt;</code></td><td>Semantic page structure</td><td class="lesson-no">2.7</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Projects ===== -->
+    <section id="projects">
+      <div class="wrap">
+        <span class="tag">Project ideas</span>
+        <h2 class="section-title">Things I would like to build</h2>
+        <p class="section-sub">Small projects that help me practise what we learn in class.</p>
+        <div class="cards">
+          <article class="project-card">
+            <span class="num">01</span>
+            <h3>Green Stand</h3>
+            <p>A football and basketball news site with schedules, results and team stats, built with plain HTML, CSS and JavaScript.</p>
+            <div><span class="pill">HTML</span><span class="pill">CSS</span><span class="pill">JS</span></div>
+          </article>
+          <article class="project-card">
+            <span class="num">02</span>
+            <h3>Simple to-do list</h3>
+            <p>A small app where I can add tasks, check them off and delete them — good practice for DOM manipulation.</p>
+            <div><span class="pill">JavaScript</span><span class="pill">DOM</span></div>
+          </article>
+          <article class="project-card">
+            <span class="num">03</span>
+            <h3>Score tracker</h3>
+            <p>A page that keeps the score of a basketball game with two click counters, one for each team.</p>
+            <div><span class="pill">JS</span><span class="pill">Events</span></div>
+          </article>
+          <article class="project-card">
+            <span class="num">04</span>
+            <h3>Study notes blog</h3>
+            <p>A simple multi-page blog where I write down what I learn each week about web development.</p>
+            <div><span class="pill">HTML</span><span class="pill">Git Pages</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Quotes & interactive demo ===== -->
+    <section id="quotes">
+      <div class="wrap">
+        <span class="tag">Quotes &amp; demo</span>
+        <h2 class="section-title">Words that keep me coding</h2>
+        <p class="section-sub">Two little JavaScript exercises: a random quote generator and a click counter.</p>
+        <div class="demo-grid">
+          <div class="quote-box">
+            <blockquote id="quote-text">Talk is cheap. Show me the code.</blockquote>
+            <p id="quote-author">— Linus Torvalds</p>
+            <button class="btn btn-primary" id="new-quote" type="button">Show me another quote</button>
+          </div>
+          <div class="counter-box">
+            <h3>Click counter</h3>
+            <p>Practising click events and updating the page.</p>
+            <div id="count-num">0</div>
+            <div class="counter-btns">
+              <button class="btn btn-primary" id="add-btn" type="button">Click me</button>
+              <button class="btn btn-ghost" id="reset-btn" type="button">Reset</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Contact ===== -->
+    <section id="contact">
+      <div class="wrap">
+        <span class="tag">Contact</span>
+        <h2 class="section-title">Get in touch</h2>
+        <p class="section-sub">This is a front-end only form — submitting it shows a message instead of sending an email.</p>
+        <form id="contact-form">
+          <div class="form-row">
+            <div class="field">
+              <label for="name">Your name</label>
+              <input type="text" id="name" name="name" placeholder="Your name" required>
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="you@example.com" required>
+            </div>
+          </div>
+          <div class="field">
+            <label for="topic">Topic</label>
+            <select id="topic" name="topic">
+              <option>Question about the course</option>
+              <option>Project collaboration</option>
+              <option>Just saying hello</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Write your message here..." required></textarea>
+          </div>
+          <button class="btn btn-primary" type="submit">Send message</button>
+          <div class="toast" id="toast">Thanks! This is a demo form, so no email was really sent.</div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== Footer ===== -->
+  <footer class="site">
+    <div class="wrap foot-inner">
+      <div>
+        <a class="logo" href="#home"><span class="logo-mark">W</span> Learning HTML</a>
+        <p>My Web Technologies course website.</p>
+      </div>
+      <div>
+        <p>&copy; 2026 WANG Youlin · BiUH Web Technologies</p>
+        <p>Built with plain HTML, CSS &amp; JavaScript.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ===== Random quote generator =====
+    const quotes = [
+      { text: "Talk is cheap. Show me the code.", author: "Linus Torvalds" },
+      { text: "The best way to predict the future is to invent it.", author: "Alan Kay" },
+      { text: "Simplicity is the soul of efficiency.", author: "Austin Freeman" },
+      { text: "First, solve the problem. Then, write the code.", author: "John Johnson" },
+      { text: "Good programmers write code that humans can understand.", author: "Martin Fowler" },
+      { text: "It's not a bug — it's an undocumented feature.", author: "A classic coder joke" }
+    ];
+    let lastIndex = 0;
+    const quoteText = document.getElementById("quote-text");
+    const quoteAuthor = document.getElementById("quote-author");
+    document.getElementById("new-quote").addEventListener("click", function () {
+      let i;
+      do { i = Math.floor(Math.random() * quotes.length); } while (i === lastIndex && quotes.length > 1);
+      lastIndex = i;
+      quoteText.textContent = quotes[i].text;
+      quoteAuthor.textContent = "— " + quotes[i].author;
+    });
+
+    // ===== Click counter =====
+    let count = 0;
+    const countNum = document.getElementById("count-num");
+    document.getElementById("add-btn").addEventListener("click", function () {
+      count++;
+      countNum.textContent = count;
+    });
+    document.getElementById("reset-btn").addEventListener("click", function () {
+      count = 0;
+      countNum.textContent = count;
+    });
+
+    // ===== Demo contact form =====
+    document.getElementById("contact-form").addEventListener("submit", function (event) {
+      event.preventDefault();
+      const toast = document.getElementById("toast");
+      toast.classList.add("show");
+      this.reset();
+    });
+  </script>
+</body>
+</html>
